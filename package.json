@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "ng serve"
+  },
+  "devDependencies": {
+    "dotenv": "^16.5.0"
+  }
+}
