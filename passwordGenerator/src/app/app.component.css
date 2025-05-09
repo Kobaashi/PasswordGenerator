@@ -1,0 +1,19 @@
+.container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+input[type='number'] {
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.2rem;
+}
