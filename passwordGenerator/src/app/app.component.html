@@ -1,3 +1,30 @@
-<h1>hi</h1>
+<div class="container">
+  <h2>Генератор паролів</h2>
+
+  <label>
+    Довжина:
+    <input type="number" [(ngModel)]="length" min="4" max="100" />
+  </label>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="includeNumbers" />
+    Включити цифри
+  </label>
+  <br />
+  <label>
+    <input type="checkbox" [(ngModel)]="includeSymbols" />
+    Включити символи
+  </label>
+  
+
+  <button (click)="generatePassword()">Згенерувати</button>
+
+  <div *ngIf="password">
+    <p><strong>Пароль:</strong> {{ password }}</p>
+    <button (click)="copyToClipboard()">📋 Копіювати</button>
+    <span *ngIf="copied" style="color: green;">Скопійовано!</span>
+  </div>
+</div>
+
 
 <router-outlet />
