@@ -22,18 +22,47 @@ export class AppComponent {
 
   generatePassword() {
     const apiUrl = 'https://api.api-ninjas.com/v1/passwordgenerator';
-    const params = {
-      length: this.length.toString(),
-      numbers: this.includeNumbers.toString(),
-      special: this.includeSymbols.toString()
-    };
     const headers = new HttpHeaders({
       'X-Api-Key': 'c1DagfGo2ACjtdlvnrzSFw==GFmxxx26xDrAQHhI'
     });
 
+    const params = {
+      length: this.length.toString(),
+      numbers: 'true',
+      special: 'true',
+      letters: 'true'
+    };
+
     this.http.get<any>(apiUrl, { params, headers }).subscribe({
       next: (data) => {
-        this.password = data.random_password;
+        let rawPassword = data.random_password;
+
+        if (!this.includeSymbols && this.includeNumbers) {
+          rawPassword = rawPassword.replace(/[^0-9]/g, '');
+        }
+
+        else if (!this.includeNumbers) {
+          rawPassword = rawPassword.replace(/[0-9]/g, '');
+        }
+
+        if (!this.includeNumbers && !this.includeSymbols) {
+          rawPassword = rawPassword.replace(/[^a-zA-Z]/g, '');
+        }
+
+        if (rawPassword.length > this.length) {
+          this.password = rawPassword.slice(0, this.length);
+        } else {
+
+          while (rawPassword.length < this.length) {
+            if (!this.includeSymbols && this.includeNumbers) {
+              rawPassword += Math.floor(Math.random() * 10).toString(); 
+            } else {
+              rawPassword += 'x'; 
+            }
+          }
+          this.password = rawPassword;
+        }
+
         this.copied = false;
       },
       error: (err) => {
